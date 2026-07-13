@@ -12,4 +12,4 @@
 | [C7] | ce_1Hz = '1' AND timer_sec = 1 | 2 seconds passed with the door open (Close door and return to IDLE). |
 
 --------------------------------------------
-<img width="1016" height="647" alt="image" src="https://github.com/user-attachments/assets/8d3ba24d-56d0-453b-993b-ccbf2638e664" />
+<img width="870" height="601" alt="image" src="https://github.com/user-attachments/assets/fed45921-16ac-4de0-a859-972ac77b5d16" />
