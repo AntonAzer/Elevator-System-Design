@@ -10,8 +10,8 @@ architecture Behavioral of elevator_ctrl_tb is
     constant NUM_FLOORS : integer := 10;
     -- Reduce clock frequency strictly for simulation so we don't wait millions of ticks.
     -- 10 cycles = 1 second in this testbench.
-    constant SIM_CLK_FREQ : integer := 10; 
-    
+    constant SIM_CLK_FREQ : integer := 10; -- virtually make the f = 10Hz for simulation
+    -- the signals that will be connected to the ctrl files ports
     signal clk         : std_logic := '0';
     signal rst         : std_logic := '1';
     signal req_buttons : std_logic_vector(NUM_FLOORS-1 downto 0) := (others => '0');
@@ -29,7 +29,7 @@ begin
     UUT: entity work.elevator_ctrl
         generic map (
             NUM_FLOORS => NUM_FLOORS,
-            CLK_FREQ   => SIM_CLK_FREQ
+            CLK_FREQ   => SIM_CLK_FREQ -- set the CLK as this file virtual clock
         )
         port map (
             clk               => clk,
@@ -39,6 +39,7 @@ begin
             door_open         => door_open,
             moving_up         => moving_up,
             moving_down       => moving_down
+			-- connecting the signals
         );
 
     -- Instantiate the SSD
@@ -68,6 +69,7 @@ begin
 
         -- Check initial state
         assert curr_floor = 0 report "Start floor is not 0" severity error;
+		-- self checking that the reset makes the system in "idle" state 
         
         -- 2. Issue multiple simultaneous requests: Floor 3 and Floor 6
         req_buttons(3) <= '1';
@@ -81,6 +83,7 @@ begin
         -- Wait until it arrives at Floor 3
         wait until curr_floor = 3;
         assert moving_up = '1' report "Elevator didn't move UP" severity error;
+		-- the queue now 6 at front then continue to moving up as expected
         
         -- Wait for door to open at Floor 3
         wait until door_open = '1';
@@ -99,6 +102,8 @@ begin
         -- Wait to arrive at Floor 1
         wait until curr_floor = 1;
         assert moving_down = '1' report "Elevator didn't move DOWN" severity error;
+   -- to understand this point you need to understand the concurrent behavior of the VHDL: in the same moment floor is one after t=0 check if it moving down
+   -- I tried to explain from cpp perspective as you may think it wrong to be movnig down at the des already!
         wait until door_open = '1';
         report "Arrived back at Floor 1!";
 
