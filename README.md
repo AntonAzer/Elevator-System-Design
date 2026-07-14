@@ -13,3 +13,6 @@
 
 --------------------------------------------
 <img width="870" height="601" alt="image" src="https://github.com/user-attachments/assets/fed45921-16ac-4de0-a859-972ac77b5d16" />
+
+Note: some conditions look like behaving unexpectedly this because of the concurrent behavior of HDL , as some conditions like [C4] depending other conditions in the code to behave as required
+example: why have we to continue moving up/down if 2 sec passed? as the code also check in moving up/down case if the 2 sec passed and the current floor is required then stop and open the door , so there is no ambiguity!
