@@ -1,3 +1,7 @@
+-- This test bench is self checking you are not required to trace the waveform
+-- just compile the files on Modelsim then run -all then from the Transcript you know the succes
+-- this better than the simulate.do file or ordinary tb files as when you improve any logic in the code 
+-- you are not required to trace the values on the waveform!
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.NUMERIC_STD.ALL;
